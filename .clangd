@@ -1,6 +1,23 @@
+# yaml-language-server: $schema=https://www.schemastore.org/clangd.json
 CompileFlags:
   # Point to the active PlatformIO env’s compile_commands.json
-  CompilationDatabase: .pio/build/espwroom32
+  CompilationDatabase: .
+  Remove:
+    # Suppress "drv_unknown_argument" errors.
+    - -mlongcalls
+    - -fno-tree-switch-conversion
+    - -fstrict-volatile-bitfields
 
 Diagnostics:
-  ClangTidy: true
+  ClangTidy:
+    # High-value checks for correctness and performance. Keep style checks out
+    # of clangd so diagnostics stay useful with Arduino/ESP32 dependencies.
+    Add:
+      - clang-analyzer-*
+      - bugprone-*
+      - performance-*
+    Remove:
+      # These checks are useful during audits, but are too noisy for continuous
+      # editor diagnostics in typical embedded code.
+      - bugprone-easily-swappable-parameters
+      - bugprone-narrowing-conversions
