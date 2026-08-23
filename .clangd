@@ -2,11 +2,18 @@
 CompileFlags:
   # Point to the active PlatformIO env’s compile_commands.json
   CompilationDatabase: .
+  # Do not let clangd fall back to the host macOS SDK for headers that are
+  # intentionally absent from the ESP32/newlib toolchain.
+  Add:
+    - -nostdlibinc
   Remove:
     # Suppress "drv_unknown_argument" errors.
     - -mlongcalls
     - -fno-tree-switch-conversion
     - -fstrict-volatile-bitfields
+    - -mdisable-hardware-atomics
+    - -mfix-esp32-psram-cache-issue
+    - -mfix-esp32-psram-cache-strategy=*
 
 Diagnostics:
   ClangTidy:

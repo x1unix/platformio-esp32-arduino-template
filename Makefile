@@ -1,6 +1,6 @@
 .PHONY: help
 help:
-	@echo "Usage: make [build|upload|monitor|compiledb]"
+	@echo "Usage: make [build|upload|monitor|compiledb|webui]"
 
 .PHONY: check_pio
 check_pio:
@@ -21,3 +21,11 @@ upload: check_pio
 .PHONY: monitor
 monitor: check_pio
 	@pio device monitor
+
+.PHONY: clean
+clean: check_pio
+	@pio run -t clean
+
+.PHONY: webui
+webui:
+	@python3 -m http.server 8000 --bind 127.0.0.1 --directory tools/webui
