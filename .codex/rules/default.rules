@@ -1,0 +1,24 @@
+# vim: set filetype=bzl :
+prefix_rule(
+  pattern = ["make", "build"],
+  decision = "allow",
+  justification = "Allow building the project",
+)
+
+prefix_rule(
+  pattern = ["clang-format"],
+  decision = "allow",
+  justification = "Allow formatting project source files",
+)
+
+prefix_rule(
+  pattern = ["pio", "run", "-v"],
+  decision = "allow",
+  justification = "Allow verbose PlatformIO builds",
+)
+
+prefix_rule(
+  pattern = ["gh", "search"],
+  decision = "allow",
+  justification = "Allow searching via GitHub",
+)
